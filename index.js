@@ -5,6 +5,9 @@ import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
 import mongoose from 'mongoose';
+import router from './routes';
+
+
 //Conexion a la base de datos
 mongoose.Promise= global.Promise;
 const dbUrl='mongodb://localhost:27017/dbsistema'
@@ -17,16 +20,22 @@ mongoose.connect(dbUrl, {useCreateIndex:true, useNewUrlParser: true})
 const app = express();
 
 app.use(morgan('dev'));
+
 app.use(cors());
+
 //Permitir peticiones json 
 app.use(express.json());
+
 app.use(express.urlencoded({extended:true}));
+
 //le indico la carpeta publica
 app.use(express.static(path.join(__dirname ,'public')));
 
+app.use('/api', router);
+
 app.set('port',process.env.PORT || 3000);
+
 
 app.listen(app.get('port'),()=>{
     console.log('server on ' + app.get('port'));
-    console.log();
 });
