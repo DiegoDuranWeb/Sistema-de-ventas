@@ -70,7 +70,7 @@ export default{
     activate: async(req, res, next) =>{
         try {
             const registro = await models.Categoria.findByIdAndUpdate({_id:req.body._id},{estado:1});
-            status(200).json(resgistro);
+            res.status(200).json(registro);
             
         } catch (error) {
             res.status(500).send({
@@ -82,7 +82,7 @@ export default{
     deactivate: async(req, res, next) =>{
         try {
             const registro = await models.Categoria.findByIdAndUpdate({_id:req.body._id},{estado:0});
-            status(200).json(resgistro);
+            res.status(200).json(registro);
             
         } catch (error) {
             res.status(500).send({
